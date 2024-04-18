@@ -15,7 +15,7 @@ This repo is a template in Nuxt 3. It has the basic front-end and back-end funct
 3. A `.env` file must be created in the project root. The file `.env.git` can be taken as an example. The file must contain the following environment variables (the DB user needs to have writing rights):
 
 | key              | value                                    | description                     |
-| ---------------- | ---------------------------------------- | ------------------------------- |              |
+| ---------------- | ---------------------------------------- | ------------------------------- |
 | DB_LOGIN         | string                                   | db user                         |
 | DB_PASSWORD      | string                                   | db password                     |
 | DB_HOST          | `<url>`                                  | url of the db server            |
