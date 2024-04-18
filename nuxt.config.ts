@@ -32,6 +32,9 @@ export default defineNuxtConfig({
       // useVuetifyLabs: true | false,
     }
   },
+  nitro: {
+    plugins: ['~/server/index.js'],
+  },
   app: {  
     baseURL: process.env.APP_TYPE == 'staging' ? '/webdev3/nuxt-skeleton/' : '/nuxt-skeleton/',
     head: {
@@ -56,6 +59,7 @@ export default defineNuxtConfig({
     // define here all plugins in nested folders
   ],
   runtimeConfig: {
+    mongodbUri: `mongodb://${process.env.DB_LOGIN}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_DATABASE}?authSource=admin`,
     public: {
       apiBase: '/api',
       apiEndPoints: [
@@ -63,12 +67,6 @@ export default defineNuxtConfig({
         '/api/projects',
         '/^\/api\/projects\/[a-zA-Z0-9\_\.]+$/',
       ]
-
-      /*url: process.env.APP_TYPE == 'development' ? `http://${process.env.APP_DEVELOPMENT_HOST}/` : process.env.APP_TYPE == 'staging' ? `https://${process.env.APP_STAGING_HOST}/` : `https://${process.env.APP_PRODUCTION_HOST}/`,
-      externalApi: process.env.MAIN_API_URL,
-      apiBase: '/api',
-      apiHost: process.env.APP_TYPE == 'development' ? process.env.APP_DEVELOPMENT_HOST : process.env.APP_TYPE == 'staging' ? process.env.APP_STAGING_HOST : process.env.APP_PRODUCTION_HOST,
-      */
     }
   },
 })
