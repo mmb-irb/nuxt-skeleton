@@ -1,9 +1,9 @@
 <template>
   <v-container>
 
-    <h1>{{ project.title }}</h1>
+    <h1>{{ document.title }}</h1>
 
-    <Breadcrumbs :props="{section: 'Projects', title: project.title}" />
+    <Breadcrumbs :props="{section: 'Documents', title: document.title}" />
 
     <v-row> 
       <v-col cols="12">
@@ -15,7 +15,7 @@
 
           <template v-slot:text>
 
-            <p>{{ project.longDescription }}</p>
+            <p>{{ document.longDescription }}</p>
 
             <v-btn @click="openDialog">Open Dialog</v-btn>
 
@@ -28,7 +28,7 @@
 
   <Dialog v-model="dialog" ref="dialogRef">
     <template #viewer>
-      <ProjectInfo :id="project.id" />
+      <DocumentInfo :id="document._id" />
     </template>
   </Dialog>
 
@@ -41,14 +41,14 @@
 
   const dialog = ref(false)
 
-  const projectInfo = await useFetch(`${config.public.apiBase}/projects/${id}`)
-  if(projectInfo.status.value === 'error')  throw createError({ statusCode: projectInfo.error.value.statusCode, message: projectInfo.error.value.statusMessage, fatal: true })
+  const documentInfo = await useFetch(`${config.public.apiBase}/documents/${id}`)
+  if(documentInfo.status.value === 'error')  throw createError({ statusCode: documentInfo.error.value.statusCode, message: documentInfo.error.value.statusMessage, fatal: true })
   
-  let project = ref(projectInfo.data.value)
+  let document = ref(documentInfo.data.value)
 
   const dialogRef = ref(null)
   const openDialog = () => {
-    dialogRef.value.updateTitle(project.value.title)
+    dialogRef.value.updateTitle(document.value.title)
     dialog.value = true
   }
 

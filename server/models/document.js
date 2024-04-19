@@ -1,6 +1,6 @@
 import { Schema, model } from "mongoose";
 
-const ProjectSchema = new Schema({
+const DocumentSchema = new Schema({
   title: {
     type: String,
   },
@@ -17,6 +17,6 @@ const ProjectSchema = new Schema({
     type: Date,
     default: Date.now,
   }
-}, { collection: 'projects' });
+}, { collection: 'documents' });
 
-export default model("Project", ProjectSchema);
+export default model("Document", DocumentSchema);

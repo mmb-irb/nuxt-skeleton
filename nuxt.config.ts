@@ -40,7 +40,7 @@ export default defineNuxtConfig({
     head: {
       titleTemplate: '%s - Nuxt Skeleton',
       meta: [ 
-        { name: 'description', content: 'Nuxt Skeleton project description' }
+        { name: 'description', content: 'Nuxt Skeleton document description' }
       ],
       link: [
         { rel: 'stylesheet', href: 'https://fonts.googleapis.com/icon?family=Open+Sans' },
@@ -53,7 +53,7 @@ export default defineNuxtConfig({
   ],
   components: [
     { path: '~/components/common', extensions: ['vue'] },
-    { path: '~/components/projects', extensions: ['vue'] }
+    { path: '~/components/documents', extensions: ['vue'] }
   ],
   plugins: [
     // define here all plugins in nested folders
@@ -64,8 +64,8 @@ export default defineNuxtConfig({
       apiBase: '/api',
       apiEndPoints: [
         '/api', 
-        '/api/projects',
-        '/^\/api\/projects\/[a-zA-Z0-9\_\.]+$/',
+        '/api/documents',
+        '/^\/api\/documents\/[a-zA-Z0-9\_\.]+$/',
       ]
     }
   },

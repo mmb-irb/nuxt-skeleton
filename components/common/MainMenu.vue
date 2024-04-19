@@ -13,8 +13,8 @@
               About
             </v-btn>
 
-            <v-btn prepend-icon="mdi-clipboard-text-search" rounded="0" color="primary" @click="toggleMenu('/projects')" to="/projects" class="common-menu">
-              Projects
+            <v-btn prepend-icon="mdi-clipboard-text-search" rounded="0" color="primary" @click="toggleMenu('/documents')" to="/documents" class="common-menu">
+              Documents
             </v-btn>
 
             <v-menu v-model="menu_resp" :close-on-content-click="false">
@@ -30,7 +30,7 @@
 
                 <v-list-item prepend-icon="mdi-information" title="About" to="/" @click="menu_resp = false; toggleMenu('/')"></v-list-item>
 
-                <v-list-item prepend-icon="mdi-clipboard-text-search" title="Projects" to="/projects" @click="menu_resp = false; toggleMenu('/projects')"></v-list-item>
+                <v-list-item prepend-icon="mdi-clipboard-text-search" title="Documents" to="/documents" @click="menu_resp = false; toggleMenu('/documents')"></v-list-item>
 
               </v-list>
 
