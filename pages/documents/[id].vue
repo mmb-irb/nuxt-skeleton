@@ -52,6 +52,10 @@
     dialog.value = true
   }
 
+  useHead({
+    title: document.value.title
+  })
+
 </script>
 
 <style scoped>
