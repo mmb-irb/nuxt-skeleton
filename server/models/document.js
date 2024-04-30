@@ -1,6 +1,10 @@
 import { Schema, model } from "mongoose";
 
 const DocumentSchema = new Schema({
+  id: {
+    type: String,
+    required: true,
+  },
   title: {
     type: String,
   },
@@ -11,6 +15,9 @@ const DocumentSchema = new Schema({
     type: String,
   },
   authors: {
+    type: Array,
+  },
+  files: {
     type: Array,
   },
   created: {

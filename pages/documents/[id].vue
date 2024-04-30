@@ -15,9 +15,9 @@
 
           <template v-slot:text>
 
-            <p>{{ document.longDescription }}</p>
+            <DocumentInfo :id="document.id" />
 
-            <v-btn @click="openDialog">Open Dialog</v-btn>
+            <v-btn v-for="(item, index) in document.files" :key="`${index}`" @click="openDialog(item.id, item.file)" class="mr-2">{{ item.file }}</v-btn>
 
           </template>
         </v-card>
@@ -28,7 +28,7 @@
 
   <Dialog v-model="dialog" ref="dialogRef">
     <template #viewer>
-      <DocumentInfo :id="document._id" />
+      <Viewer :id="fileId" />
     </template>
   </Dialog>
 
@@ -46,9 +46,11 @@
   
   let document = ref(documentInfo.data.value)
 
+  const fileId = ref(null)
   const dialogRef = ref(null)
-  const openDialog = () => {
-    dialogRef.value.updateTitle(document.value.title)
+  const openDialog = (id, fn) => {
+    dialogRef.value.updateTitle(fn)
+    fileId.value = id
     dialog.value = true
   }
 

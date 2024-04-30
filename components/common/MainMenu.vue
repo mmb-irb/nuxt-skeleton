@@ -17,6 +17,10 @@
               Documents
             </v-btn>
 
+            <v-btn prepend-icon="mdi-cloud-braces" rounded="0" color="primary" @click="toggleMenu('/rest')" to="/rest" class="common-menu">
+              REST API
+            </v-btn>
+
             <v-menu v-model="menu_resp" :close-on-content-click="false">
               <template v-slot:activator="{ props }">
                 <div v-bind="props" id="responsive-menu-btn" class="float-right" @click="animateBtn">
@@ -31,6 +35,8 @@
                 <v-list-item prepend-icon="mdi-information" title="About" to="/" @click="menu_resp = false; toggleMenu('/')"></v-list-item>
 
                 <v-list-item prepend-icon="mdi-clipboard-text-search" title="Documents" to="/documents" @click="menu_resp = false; toggleMenu('/documents')"></v-list-item>
+
+                <v-list-item prepend-icon="mdi-cloud-braces" title="REST API" to="/rest" @click="menu_resp = false; toggleMenu('/rest')"></v-list-item>
 
               </v-list>
 

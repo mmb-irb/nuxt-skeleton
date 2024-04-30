@@ -1,0 +1,327 @@
+
+{
+  "openapi": "3.0.2",
+  "info": {
+		"title": "",
+		"license": {
+				"name": "MIT License"
+		},
+		"version": "",
+		"description": ""
+  },
+  "consumes": [
+    "application\/json"
+  ],
+  "tags": [
+		{
+			"name": "Documents metadata",
+			"description": "Documents data and metadata"
+		},
+		{
+			"name": "Documents files",
+			"description": "Documents downloadable files"
+		}
+  ],
+  "paths": {
+		"\/documents": {
+			"get": {
+				"tags": [
+					"Documents metadata"
+				],
+				"summary": "Get list of documents",
+				"description": "Gets a paginated list of summaries of all the documents available in the database",
+				"operationId": "getDocuments",
+				"produces": [
+					"application\/json"
+				],
+				"parameters": [
+					{
+						"name": "limit",
+						"in": "query",
+						"description": "Maximum number of documents in each page",
+						"required": false,
+						"type": "integer",
+						"default": 10
+					},
+					{
+						"name": "page",
+						"in": "query",
+						"description": "Number of page to be returned",
+						"required": false,
+						"type": "integer",
+						"default": 1
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Total documents and paginated array of documents",
+						"content": {
+							"application/json": {
+								"schema": {
+									"properties": {
+										"total": {
+											"description": "Total number of documents in the database",
+											"type": "integer"
+										},
+										"documents": {
+											"description": "List of documents",
+											"type": "array",
+											"items": {
+												"$ref": "#\/components/schemas\/ShortDocument"
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				},
+				"deprecated": false
+			}
+		},
+		"\/documents\/{id}": {
+			"get": {
+				"tags": [
+					"Documents metadata"
+				],
+				"summary": "Get single document",
+				"description": "Gets all the available information for a single document corresponding to the given identifier",
+				"operationId": "getDocument",
+				"produces": [
+					"application\/json"
+				],
+				"parameters": [
+					{ 
+						"$ref": "#/definitions/arguments/doc_id" 
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Single document metadata",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"$ref": "#\/components/schemas\/Document"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Resource Not Found",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"$ref": "#\/components/schemas\/StatusError"
+								}
+							}
+						}
+					}
+				},
+				"deprecated": false
+			}
+		},
+		"\/files\/{id}": {
+			"get": {
+				"tags": [
+					"Documents files"
+				],
+				"summary": "Get file",
+				"description": "Gets a file from a single document corresponding to the given identifier",
+				"operationId": "getFile",
+				"produces": [
+					"chemical/x-pdb"
+				],
+				"parameters": [
+					{ 
+						"$ref": "#/definitions/arguments/file_id" 
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful operation",
+						"content": {
+							"chemical/x-pdb": {
+								"schema": {
+									"type": "string",
+									"format": "binary"
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "Bad Request",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"$ref": "#\/components/schemas\/StatusError"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "Resource Not Found",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "object",
+									"$ref": "#\/components/schemas\/StatusError"
+								}
+							}
+						}
+					}
+				},
+				"deprecated": false
+			}
+		}
+  },
+  "definitions": {
+		"arguments": {
+			"doc_id": {
+				"name": "id",
+				"in": "path",
+				"description": "Document identifier",
+				"required": true,
+				"type": "string"
+			},
+			"file_id": {
+				"name": "id",
+				"in": "path",
+				"description": "File identifier",
+				"required": true,
+				"type": "string"
+			}
+		}
+  },
+  "components": {
+		"schemas": {
+			"ShortDocument": {
+				"required": [
+					"id",
+					"title",
+					"description",
+					"files",
+					"created"
+				],
+				"properties": {
+					"id": {
+						"description": "identifier",
+						"type": "string"
+					},
+					"title": {
+						"description": "document title",
+						"type": "string"
+					},
+					"description": {
+						"description": "document description",
+						"type": "string"
+					},
+					"files": {
+						"description": "document description",
+						"type": "integer"
+					},
+					"created": {
+						"description": "document date of creation",
+						"type": "string",
+            "format": "date-time"
+					}
+				},
+				"type": "object",
+				"xml": {
+					"name": "ShortDocument"
+				}
+			},
+			"Document": {
+				"required": [
+					"id",
+					"title",
+					"description",
+					"longDescription",
+					"authors",
+					"files",
+					"created"
+				],
+				"properties": {
+					"id": {
+						"description": "identifier",
+						"type": "string"
+					},
+					"title": {
+						"description": "document title",
+						"type": "string"
+					},
+					"description": {
+						"description": "document description",
+						"type": "string"
+					},
+					"longDescription": {
+						"description": "document long description",
+						"type": "string"
+					},
+					"authors": {
+						"description": "list of authors for this document",
+						"type": "array",
+						"items": {
+							"description": "author",
+							"type": "object",
+							"properties": {
+								"name": {
+									"description": "author name",
+									"type": "string"
+								},
+								"email": {
+									"description": "author e-mail",
+									"type": "string"
+								}
+							}
+						}
+					},
+					"files": {
+						"description": "list of files for this document",
+						"type": "array",
+						"items": {
+							"description": "file",
+							"type": "object",
+							"properties": {
+								"_id": {
+									"description": "file identifier",
+									"type": "string"
+								},
+								"file": {
+									"description": "file name",
+									"type": "string"
+								}
+							}
+						}
+					},
+					"created": {
+						"description": "document date of creation",
+						"type": "string",
+            "format": "date-time"
+					}
+				},
+				"type": "object",
+				"xml": {
+						"name": "Document"
+				}
+			},
+			"StatusError": {
+				"required": [
+					"message"
+				],
+				"properties": {
+					"message": {
+						"description": "Response of the REST API server",
+						"type": "string"
+					}
+				},
+				"type": "object",
+				"xml": {
+					"name": "StatusError"
+				}
+			}
+		}
+  }
+}

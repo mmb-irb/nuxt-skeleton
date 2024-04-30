@@ -19,6 +19,25 @@
           
             <DocumentItem v-for="(item, index) in documents" :key="`${Math.random()}`" :item="item" />
 
+            <v-row justify="space-between" class="pt-5" > 
+              <v-col lg="2" md="2" sm="4" xs="12">
+                <v-select
+                  v-model="rows"
+                  label="Rows per page"
+                  :items="rowsPerPage"
+                  @update:modelValue="paginate"
+                ></v-select>
+              </v-col>
+              <v-col lg="10" md="10" sm="8" xs="12">
+                <v-pagination
+                  v-model="page"
+                  :length="totalPages"
+                  :total-visible="totalVisible"
+                  @update:modelValue="paginate"
+                ></v-pagination>
+              </v-col>
+            </v-row>
+
           </template>
         </v-card>
       </v-col>
@@ -31,14 +50,42 @@
 
   const config = useRuntimeConfig()
 
-  const documentsList = await useFetch(`${config.public.apiBase}/documents`)
+  const rows = ref(10)
+  const page = ref(1)
+
+  const documentsList = await useFetch(`${config.public.apiBase}/documents/?limit=${rows.value}&page=${page.value}`)
   if(documentsList.status.value === 'error')  throw createError({ statusCode: documentsList.error.value.statusCode, message: documentsList.error.value.statusMessage, fatal: true })
-  
-  let documents = ref(documentsList.data.value)
+
+  let documents = ref(documentsList.data.value.documents)
+  let totalPages = ref(Math.ceil(documentsList.data.value.total/rows.value))
 
   useHead({
     title: 'Documents' 
   })
+
+  /* PAGINATION */
+  const rowsPerPage = [ 5, 10, 25, 50 ]
+  const totalVisible = ref(9)
+  const calculateTotalVisible = () => {
+    if(window.innerWidth > 960) totalVisible.value = 9
+    else if(window.innerWidth <= 960 && window.innerWidth > 780) totalVisible.value = 6
+    else if(window.innerWidth <= 780 && window.innerWidth > 600) totalVisible.value = 4
+    else totalVisible.value = 3
+  }
+  calculateTotalVisible()
+  window.addEventListener('resize', () => calculateTotalVisible())
+
+  const paginate = async () => {
+
+    let docsList = await useFetch(`${config.public.apiBase}/documents/?limit=${rows.value}&page=${page.value}`)
+
+    documents.value = docsList.data.value.documents
+    totalPages.value = Math.ceil(docsList.data.value.total/rows.value)
+    if(docsList.data.value.documents.length === 0) {
+      page.value = 1
+      paginate()
+    }
+  }
 
 </script>
 

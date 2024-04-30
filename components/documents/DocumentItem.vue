@@ -2,13 +2,16 @@
   <div class="document-item">
 
     <div class="document-content">
-      <h3 ><NuxtLink :to="`/documents/${item._id}`">{{ item.title }}</NuxtLink></h3>
+      <h3><NuxtLink :to="`/documents/${item.id}`">{{ item.title }}</NuxtLink></h3>
 
       <v-row class="mt-2">
-        <v-col cols="9" md="6">
+        <v-col lg="8" md="8" sm="6" cols="12" v-bind:class="{ 'pb-0': display.smAndDown }">
           <p class="mt-2">{{ item.description }}</p>
         </v-col>
-        <v-col cols="3" md="6">
+        <v-col lg="2" md="2" sm="6" cols="12" v-bind:class="{ 'pb-0': display.smAndDown }">
+          <p class="mt-2">total files: {{ item.files }}</p>
+        </v-col>
+        <v-col lg="2" md="2" sm="12" cols="12" v-bind:class="{ 'pt-0': display.smAndDown }">
           <p class="mt-2">{{ new Date(item.created).toLocaleDateString() }}</p>
         </v-col>
       </v-row>
@@ -18,8 +21,11 @@
 </template>
 
 <script setup>
+  import { useDisplay } from 'vuetify'
 
   const { item } = defineProps(['item']);
+
+  const display = ref(useDisplay())
 
 </script>
 

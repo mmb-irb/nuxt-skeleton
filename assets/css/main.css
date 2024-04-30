@@ -10,8 +10,8 @@
   --palette-5: #f4a261;
   --palette-6: #e76f51;
   /* swagger */
-  --swagger-method: #d9042988;
-  --swagger-bg: rgb(243 106 90 / 5%);
+  --swagger-method: #e76f5188;
+  --swagger-bg: rgba(243, 212, 90, 0.05);
   /* document */
   --nucl-dis:#9394a6;
   --bond-dis:#f5f5f5;

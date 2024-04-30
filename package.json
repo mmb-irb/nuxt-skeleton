@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
+  "main": "index.js",
+  "author": "Genís Bayarri",
+  "license": "ISC",
+  "description": "",
   "scripts": {
     "build:staging": "APP_TYPE=staging nuxt build",
     "build:production": "APP_TYPE=production nuxt build",
@@ -25,11 +29,9 @@
     "vue": "^3.3.10",
     "vue-router": "^4.2.5"
   },
-  "main": "index.js",
-  "author": "Genís Bayarri",
-  "license": "ISC",
-  "description": "",
   "dependencies": {
-    "mongoose": "^8.3.2"
+    "mongoose": "^8.3.2",
+    "ngl": "^2.0.0-dev.36",
+    "swagger-ui": "^5.17.3"
   }
 }

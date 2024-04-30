@@ -53,7 +53,8 @@ export default defineNuxtConfig({
   ],
   components: [
     { path: '~/components/common', extensions: ['vue'] },
-    { path: '~/components/documents', extensions: ['vue'] }
+    { path: '~/components/documents', extensions: ['vue'] },
+    { path: '~/components/viewer', extensions: ['vue'] }
   ],
   plugins: [
     // define here all plugins in nested folders
@@ -63,11 +64,14 @@ export default defineNuxtConfig({
                 `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_DATABASE}` :
                 `mongodb://${process.env.DB_LOGIN}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_DATABASE}?authSource=admin`,
     public: {
+      protocol: process.env.APP_TYPE == 'development' ? 'http' : 'https',
+      apiHost: process.env.APP_TYPE == 'development' ? process.env.APP_DEVELOPMENT_HOST : process.env.APP_TYPE == 'staging' ? process.env.APP_STAGING_HOST : process.env.APP_PRODUCTION_HOST,
       apiBase: '/api',
       apiEndPoints: [
         '/api', 
-        '/api/documents',
+        '/^\/api\/documents(\\/)?(\\?[\\w=&]+)?$/', 
         '/^\/api\/documents\/[a-zA-Z0-9\_\.]+$/',
+        '/^\/api\/files\/[a-zA-Z0-9\_\.]+$/',
       ]
     }
   },
