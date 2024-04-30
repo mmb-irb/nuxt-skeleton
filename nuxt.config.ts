@@ -36,7 +36,8 @@ export default defineNuxtConfig({
     plugins: ['~/server/index.js'],
   },
   app: {  
-    baseURL: process.env.APP_TYPE == 'staging' ? '/webdev3/nuxt-skeleton/' : '/nuxt-skeleton/',
+    // modify baseURL depending on the server where the app is running
+    baseURL: process.env.APP_TYPE == 'staging' ? '/nuxt-skeleton/' : '/nuxt-skeleton/',
     head: {
       titleTemplate: '%s - Nuxt Skeleton',
       meta: [ 
@@ -64,7 +65,10 @@ export default defineNuxtConfig({
                 `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_DATABASE}` :
                 `mongodb://${process.env.DB_LOGIN}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_DATABASE}?authSource=admin`,
     public: {
-      protocol: process.env.APP_TYPE == 'development' ? 'http' : 'https',
+      // enable when production / staging in server
+      //protocol: process.env.APP_TYPE == 'development' ? 'http' : 'https',
+      // enable when production / staging in docker
+      protocol: 'http',
       apiHost: process.env.APP_TYPE == 'development' ? process.env.APP_DEVELOPMENT_HOST : process.env.APP_TYPE == 'staging' ? process.env.APP_STAGING_HOST : process.env.APP_PRODUCTION_HOST,
       apiBase: '/api',
       apiEndPoints: [
