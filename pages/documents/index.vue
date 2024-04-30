@@ -17,26 +17,35 @@
 
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis minima officia placeat velit. At facere iusto veniam, optio exercitationem aspernatur incidunt, esse maiores saepe officia culpa dolores nesciunt itaque iure.</p>
           
-            <DocumentItem v-for="(item, index) in documents" :key="`${Math.random()}`" :item="item" />
+            <div v-if="documents.length === 0" class="text-center mt-5">
+              <v-icon size="100" color="grey" icon="mdi-file-search"></v-icon>
+              <p class="grey--text">No documents found</p>
+            </div>
 
-            <v-row justify="space-between" class="pt-5" > 
-              <v-col lg="2" md="2" sm="4" xs="12">
-                <v-select
-                  v-model="rows"
-                  label="Rows per page"
-                  :items="rowsPerPage"
-                  @update:modelValue="paginate"
-                ></v-select>
-              </v-col>
-              <v-col lg="10" md="10" sm="8" xs="12">
-                <v-pagination
-                  v-model="page"
-                  :length="totalPages"
-                  :total-visible="totalVisible"
-                  @update:modelValue="paginate"
-                ></v-pagination>
-              </v-col>
-            </v-row>
+            <div v-else>
+
+              <DocumentItem v-for="(item, index) in documents" :key="`${Math.random()}`" :item="item" />
+
+              <v-row justify="space-between" class="pt-5" > 
+                <v-col lg="2" md="2" sm="4" xs="12">
+                  <v-select
+                    v-model="rows"
+                    label="Rows per page"
+                    :items="rowsPerPage"
+                    @update:modelValue="paginate"
+                  ></v-select>
+                </v-col>
+                <v-col lg="10" md="10" sm="8" xs="12">
+                  <v-pagination
+                    v-model="page"
+                    :length="totalPages"
+                    :total-visible="totalVisible"
+                    @update:modelValue="paginate"
+                  ></v-pagination>
+                </v-col>
+              </v-row>
+
+            </div>
 
           </template>
         </v-card>
