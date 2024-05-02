@@ -51,7 +51,10 @@
     const pjson = await import('../package.json')
     const spec = JSON.parse(JSON.stringify(await import('@/assets/settings/swagger.json')))
 
-    spec.servers = [{ url: `${config.public.protocol}://${config.public.apiHost}${config.public.apiBase}` }]
+    const nuxtApp = useNuxtApp()
+
+    spec.servers = [{ url: `${window.location.origin}${nuxtApp.$config.app.baseURL.replace(/\/$/, "")}${config.public.apiBase}` }]
+    console.log(spec.servers)
     spec.info.version = pjson.version
 
     SwaggerUI({
