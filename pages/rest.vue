@@ -81,7 +81,7 @@
     const pjson = await import('../package.json')
     swagger.servers = [{ url: `${window.location.origin}${nuxtApp.$config.app.baseURL.replace(/\/$/, "")}${config.public.apiBase}` }]
     swagger.default.info.version = pjson.version
-    swagger.default.info.title = $globals.shortName
+    swagger.default.info.title = `${$globals.shortName} REST API`
     swagger.default.info.description = document.querySelector('#rest-desc').innerHTML
     const blob = new Blob([JSON.stringify(swagger, null, 2)], {type : 'application/json'});
 
