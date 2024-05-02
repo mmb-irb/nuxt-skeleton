@@ -38,6 +38,7 @@
 
   const { $globals, $sleep } = useNuxtApp()
   const config = useRuntimeConfig()
+  const nuxtApp = useNuxtApp()
 
   useHead({
     title: `REST API` 
@@ -50,8 +51,6 @@
 
     const pjson = await import('../package.json')
     const spec = JSON.parse(JSON.stringify(await import('@/assets/settings/swagger.json')))
-
-    const nuxtApp = useNuxtApp()
 
     spec.servers = [{ url: `${window.location.origin}${nuxtApp.$config.app.baseURL.replace(/\/$/, "")}${config.public.apiBase}` }]
     spec.info.version = pjson.version
@@ -80,7 +79,7 @@
   const downloadSwagger = async() => {
     const swagger = JSON.parse(JSON.stringify(await import('@/assets/settings/swagger.json')))
     const pjson = await import('../package.json')
-    swagger.servers = [{ url: `${config.public.protocol}://${config.public.apiHost}${config.public.apiBase}` }]
+    swagger.servers = [{ url: `${window.location.origin}${nuxtApp.$config.app.baseURL.replace(/\/$/, "")}${config.public.apiBase}` }]
     swagger.default.info.version = pjson.version
     swagger.default.info.title = $globals.shortName
     swagger.default.info.description = document.querySelector('#rest-desc').innerHTML
