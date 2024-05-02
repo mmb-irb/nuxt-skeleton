@@ -54,7 +54,6 @@
     const nuxtApp = useNuxtApp()
 
     spec.servers = [{ url: `${window.location.origin}${nuxtApp.$config.app.baseURL.replace(/\/$/, "")}${config.public.apiBase}` }]
-    console.log(spec.servers)
     spec.info.version = pjson.version
 
     SwaggerUI({
