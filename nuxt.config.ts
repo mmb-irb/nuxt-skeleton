@@ -37,7 +37,7 @@ export default defineNuxtConfig({
   },
   app: {  
     // modify baseURL depending on the server where the app is running
-    baseURL: process.env.APP_TYPE == 'staging' ? '/nuxt-skeleton/' : '/nuxt-skeleton/',
+    baseURL: process.env.APP_TYPE == 'staging' ? '/webdev3/nuxt-skeleton/' : '/nuxt-skeleton/',
     head: {
       titleTemplate: '%s - Nuxt Skeleton',
       meta: [ 
