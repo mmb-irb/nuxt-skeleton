@@ -37,7 +37,7 @@ export default defineNuxtConfig({
   },
   app: {  
     // modify baseURL depending on the server where the app is running
-    baseURL: process.env.APP_TYPE == 'staging' ? '/webdev3/nuxt-skeleton/' : '/nuxt-skeleton/',
+    baseURL: process.env.APP_TYPE == 'staging' ? '/nuxt-skeleton/' : '/webdev3/nuxt-skeleton/',
     head: {
       titleTemplate: '%s - Nuxt Skeleton',
       meta: [ 
@@ -45,7 +45,7 @@ export default defineNuxtConfig({
       ],
       link: [
         { rel: 'stylesheet', href: 'https://fonts.googleapis.com/icon?family=Open+Sans' },
-        { rel: 'icon', type: 'image/x-icon', href: `${process.env.APP_TYPE === 'staging' ? '/webdev3/nuxt-skeleton/' : '/nuxt-skeleton/'}favicon.ico` },
+        { rel: 'icon', type: 'image/x-icon', href: `${process.env.APP_TYPE === 'staging' ? '/nuxt-skeleton/' : '/webdev3/nuxt-skeleton/'}favicon.ico` },
       ]
     },
   },
