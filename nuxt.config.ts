@@ -45,7 +45,7 @@ export default defineNuxtConfig({
       ],
       link: [
         { rel: 'stylesheet', href: 'https://fonts.googleapis.com/icon?family=Open+Sans' },
-        { rel: 'icon', type: 'image/x-icon', href: `${process.env.APP_TYPE === 'staging' ? '/nuxt-skeleton/' : '/webdev3/nuxt-skeleton/'}favicon.ico` },
+        { rel: 'icon', type: 'image/x-icon', href: `${process.env.APP_TYPE == 'development' ? process.env.BASE_URL_DEVELOPMENT : process.env.APP_TYPE == 'staging' ? process.env.BASE_URL_STAGING : process.env.BASE_URL_PRODUCTION}favicon.ico` },
       ]
     },
   },
