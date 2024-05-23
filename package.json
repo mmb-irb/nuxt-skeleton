@@ -8,9 +8,9 @@
   "license": "ISC",
   "description": "",
   "scripts": {
-    "build:staging": "APP_TYPE=staging nuxt build",
-    "build:production": "APP_TYPE=production nuxt build",
-    "dev": "APP_TYPE=development nuxt dev --port 3001",
+    "build:staging": "node scripts/copyCustomImgs.js && APP_TYPE=staging nuxt build",
+    "build:production": "node scripts/copyCustomImgs.js && APP_TYPE=production nuxt build",
+    "dev": "node scripts/copyCustomImgs.js && APP_TYPE=development nuxt dev --port 3001",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",

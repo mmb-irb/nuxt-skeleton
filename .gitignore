@@ -26,3 +26,8 @@ logs
 
 coverage
 package-lock.json
+
+# config folder (optional)
+config/
+public/img/custom_logo.png
+public/custom_favicon.ico

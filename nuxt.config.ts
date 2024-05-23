@@ -1,3 +1,9 @@
+import fs from 'fs';
+import path from 'path';
+
+// modify baseURL depending on the server where the app is running
+const baseURL = process.env.APP_TYPE == 'development' ? process.env.BASE_URL_DEVELOPMENT : process.env.APP_TYPE == 'staging' ? process.env.BASE_URL_STAGING : process.env.BASE_URL_PRODUCTION
+
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   ssr: false,
@@ -36,8 +42,7 @@ export default defineNuxtConfig({
     plugins: ['~/server/index.js'],
   },
   app: {  
-    // modify baseURL depending on the server where the app is running
-    baseURL: process.env.APP_TYPE == 'development' ? process.env.BASE_URL_DEVELOPMENT : process.env.APP_TYPE == 'staging' ? process.env.BASE_URL_STAGING : process.env.BASE_URL_PRODUCTION,
+    baseURL: baseURL,
     head: {
       titleTemplate: '%s - Nuxt Skeleton',
       meta: [ 
@@ -45,12 +50,18 @@ export default defineNuxtConfig({
       ],
       link: [
         { rel: 'stylesheet', href: 'https://fonts.googleapis.com/icon?family=Open+Sans' },
-        { rel: 'icon', type: 'image/x-icon', href: `${process.env.APP_TYPE == 'development' ? process.env.BASE_URL_DEVELOPMENT : process.env.APP_TYPE == 'staging' ? process.env.BASE_URL_STAGING : process.env.BASE_URL_PRODUCTION}favicon.ico` },
+        { 
+          rel: 'icon', 
+          type: 'image/x-icon', 
+          href:  process.env.CUSTOM === 'true' ? `${baseURL}custom_favicon.ico` : `${baseURL}favicon.ico` },
       ]
     },
   },
   css: [
-    '~/assets/css/main.css'
+    '~/assets/css/main.css',
+    ...(fs.existsSync(path.resolve(__dirname, 'config/custom.css')) && process.env.CUSTOM === 'true'
+      ? [path.resolve(__dirname, 'config/custom.css')] 
+      : [])
   ],
   components: [
     { path: '~/components/common', extensions: ['vue'] },
@@ -65,6 +76,7 @@ export default defineNuxtConfig({
                 `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_DATABASE}` :
                 `mongodb://${process.env.DB_LOGIN}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_DATABASE}?authSource=admin`,
     public: {
+      logoUrl: process.env.CUSTOM === 'true' ? `${baseURL}img/custom_logo.png` : `${baseURL}img/logo.png`,
       apiBase: '/api',
       apiEndPoints: [
         '/api', 

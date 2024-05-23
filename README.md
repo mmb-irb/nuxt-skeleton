@@ -25,6 +25,9 @@ This repo is a template in Nuxt 3. It has the basic front-end and back-end funct
 | BASE_URL_DEVELOPMENT      | string                                   | baseURL for development         |
 | BASE_URL_STAGING          | string                                   | baseURL for staging             |
 | BASE_URL_PRODUCTION       | string                                   | baseURL for production          |
+| CUSTOM                    | boolean                                  | whether or not custom images and styles provided          |
+
+If `CUSTOM=true`, make sure to provide a **/config folder** in the root of the project with a **custom.css**, **favicon.ico** and **logo.png** files. 
 
 ## Development Server
 

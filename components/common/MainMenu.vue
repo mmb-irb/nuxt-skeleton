@@ -4,7 +4,7 @@
     <v-container>
       <v-row style="height:64px;"> 
         <v-col lg="2" md="2" sm="6" class="py-0">
-          <NuxtLink to="/" @click="toggleMenu('/')" id="link-logo"><img src="/img/logo.png" id="main-logo" alt="main logo" /></NuxtLink>
+          <NuxtLink to="/" @click="toggleMenu('/')" id="link-logo"><img :src="logoUrl" id="main-logo" alt="main logo" /></NuxtLink>
         </v-col>
 
         <v-col lg="10" md="10" sm="6" class="py-0">
@@ -49,6 +49,9 @@
 </template>
 
 <script setup>
+
+  const config = useRuntimeConfig()
+  const logoUrl = config.public.logoUrl
 
   import structureSettings from '@/modules/structure/structureSettings'
 
