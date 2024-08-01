@@ -74,7 +74,6 @@ export default defineNuxtConfig({
   runtimeConfig: {
     mongodbUri: (!process.env.DB_LOGIN || !process.env.DB_PASSWORD) ?
                 `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_DATABASE}` :
-                //`mongodb://${process.env.DB_LOGIN}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_DATABASE}?authSource=admin`,
                 `mongodb://${process.env.DB_LOGIN}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_DATABASE}?authSource=${process.env.DB_AUTHSOURCE}`,
     public: {
       logoUrl: process.env.CUSTOM === 'true' ? `${baseURL}img/custom_logo.png` : `${baseURL}img/logo.png`,
