@@ -11,9 +11,18 @@ export default defineNuxtConfig({
     options: { strict: true } 
   },
   devtools: { enabled: true },
-  modules: ['@invictus.codes/nuxt-vuetify'],
-  vuetify: {
-    /* vuetify options */
+  //modules: ['@invictus.codes/nuxt-vuetify'],
+  //css: ['vuetify/lib/styles/main.sass'],
+  build: {
+    transpile: ['vuetify']
+  },
+  vite: {
+    define: {
+      'process.env.DEBUG': false
+    }
+  },
+  /*vuetify: {
+    // vuetify options
     vuetifyOptions: {
       // @TODO: list all vuetify options
       theme: {
@@ -28,16 +37,16 @@ export default defineNuxtConfig({
       },
     },
     moduleOptions: {
-      /* nuxt-vuetify module options */
+      // nuxt-vuetify module options
       // treeshaking: true | false,
       // useIconCDN: true | false,
 
-      /* vite-plugin-vuetify options */
+      // vite-plugin-vuetify options
       // styles: true | 'none' | 'expose' | 'sass' | { configFile: string },
       // autoImport: true | false,
       // useVuetifyLabs: true | false,
     }
-  },
+  },*/
   nitro: {
     plugins: ['~/server/index.js'],
   },
@@ -61,7 +70,9 @@ export default defineNuxtConfig({
     '~/assets/css/main.css',
     ...(fs.existsSync(path.resolve(__dirname, 'config/custom.css')) && process.env.CUSTOM === 'true'
       ? [path.resolve(__dirname, 'config/custom.css')] 
-      : [])
+      : []),
+    '@mdi/font/css/materialdesignicons.min.css', // Only for webfont option
+    'vuetify/lib/styles/main.css'
   ],
   components: [
     { path: '~/components/common', extensions: ['vue'] },
